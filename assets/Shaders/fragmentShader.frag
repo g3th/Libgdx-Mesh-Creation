@@ -37,7 +37,7 @@ void main() {
     float stretch = 1.;
     motionUv.x *= stretch + sin(distortion_strength * motionUv.y + speed * u_time) * offset;
     vec4 texture2 = texture2D(u_texture2, motionUv);
-    texture2.rgb = vec3(.6, .4, .5);
+    texture2.rgb = vec3(0.);
     vec4 blend;
     Dimensions box_dimensions;
     box_dimensions.top = 0.76;
