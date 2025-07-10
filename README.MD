@@ -1,6 +1,8 @@
 # LibGDX - Mesh Creation
 ## Create a Mesh, Render a Quad and Post-Process the Scene
 
+https://github.com/user-attachments/assets/298a2852-f752-4f44-bd7c-7b6433611607
+
 LibGDX provides a convenient way to render your scene in its `SpriteBatch` implementation. This will usually suffice for most games rendering simple scenes comprised of sprites, textures and the API's default shader. Rendering this way will also usually be enough if simple post-processing needs to be applied to single sprites or single textures.
  
 However (here is the conjuctive adverb connecting two independent clauses), when more complex post-processing is required, or a more involved scene is being rendered, different textures might need to be post-processed by the same fragment shader, blended and rendered simultaneously.
