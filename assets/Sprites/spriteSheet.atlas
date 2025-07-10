@@ -1,0 +1,9 @@
+spriteSheet.png
+size:512,512
+repeat:none
+computer_screen
+bounds:2,41,452,350
+light_off
+bounds:456,354,28,37
+light_on
+bounds:2,2,28,37
