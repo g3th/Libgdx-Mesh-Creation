@@ -2,6 +2,7 @@ package com.meshcreation
 
 import com.badlogic.gdx.Gdx.files
 import com.badlogic.gdx.Gdx.gl
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Mesh
@@ -24,7 +25,9 @@ class SimpleQuad {
     lateinit var vertices: FloatArray
     lateinit var indices: ShortArray
     var lightState = 0
-    val shaders = ShaderProgram(files.internal("Shaders/vertexShader.vert"), files.internal("Shaders/fragmentShader.frag"))
+    var n = 0
+    val currentChannel = listOf(files.internal("Shaders/tiles.frag"), files.internal("Shaders/waves.frag"))
+    var shaders = ShaderProgram(files.internal("Shaders/vertexShader.vert"), currentChannel[n])
 
     fun init(worldWidth: Float, worldHeight: Float, centerX: Float, centerY: Float) {
         val width = worldWidth / 2f
@@ -68,11 +71,20 @@ class SimpleQuad {
      **/
 
     fun render(screenTexture: Texture, fontsAsTexture: Texture, spotLight: Texture, camera: Camera, deltaTime: Float) {
-
         gl.glEnable(GL20.GL_BLEND)
         gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+        if (SWITCHES.CHANNEL_SWITCHED.STATE) {
+            SWITCHES.CHANNEL_SWITCHED.STATE = false
+            when {
+                SWITCHES.CHANNEL_RIGHT.STATE -> { n = (n + 1).coerceAtMost(currentChannel.size - 1) }
+                else -> {
+                    n = (n - 1).coerceAtLeast(0)
+                }
+            }
+            shaders = ShaderProgram(files.internal("Shaders/vertexShader.vert"), currentChannel[n])
+        }
+        lightState = if (SWITCHES.LIGHT.STATE) 1 else 0
         shaders.bind()
-        lightState = if (LIGHT.STATE.ON) 1 else 0
         screenTexture.bind(0)
         spotLight.bind(1)
         fontsAsTexture.bind(2)

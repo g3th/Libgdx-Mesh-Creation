@@ -17,14 +17,23 @@ struct Dimensions {
     float right;
 };
 
-float box(vec2 uv, Dimensions dimensions){
-    float top = smoothstep(0.1, 0.1, uv.y - dimensions.top);
-    float bottom = smoothstep(0.1, 0.1, uv.y - dimensions.bottom);
-    float left = smoothstep(0.1, 0.1, uv.x - dimensions.left);
-    float right = smoothstep(0.1, 0.1, uv.x - dimensions.right);
-    return (right - left) * (top - bottom);
+Dimensions boxDimensions(){
+    Dimensions bd;
+    bd.top = 0.76;
+    bd.bottom = 0.1;
+    bd.left = -0.05;
+    bd.right = 0.7;
+    return bd;
 }
 
+float box(vec2 uv, Dimensions dimensions){
+    float boxPosition = 0.1;
+    float top = smoothstep(boxPosition, boxPosition, uv.y - dimensions.top);
+    float bottom = smoothstep(boxPosition, boxPosition, uv.y - dimensions.bottom);
+    float left = smoothstep(boxPosition, boxPosition, uv.x - dimensions.left);
+    float right = smoothstep(boxPosition, boxPosition, uv.x - dimensions.right);
+    return (right - left) * (top - bottom);
+}
 
 void main() {
     vec2 uv = v_texCoords;
@@ -39,12 +48,7 @@ void main() {
     vec4 texture2 = texture2D(u_texture2, motionUv);
     texture2.rgb = vec3(0.);
     vec4 blend;
-    Dimensions box_dimensions;
-    box_dimensions.top = 0.76;
-    box_dimensions.bottom = 0.1;
-    box_dimensions.left = -0.05;
-    box_dimensions.right = 0.7;
-    float box = box(uv, box_dimensions);
+    float box = box(uv, boxDimensions());
     vec4 screenOn = vec4(box, box, box, 1.);
     float oscillation = mix(.7, .7, abs(sin(u_time * 10.)));
     float color_motion = fract(motionUv.x * motionUv.y * 10. * oscillation);

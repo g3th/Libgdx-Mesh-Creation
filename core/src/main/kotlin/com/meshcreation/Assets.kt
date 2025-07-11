@@ -11,7 +11,7 @@ class Assets(): Disposable {
     val loader = AssetManager()
 
     object SPRITE_KEYS {
-        val sprites = listOf("computer_screen", "light_on", "light_off")
+        val sprites = listOf("computer_screen_with_buttons", "light_on", "light_off")
     }
 
     fun load(): Map<String, Sprite> {

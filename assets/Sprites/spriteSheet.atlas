@@ -1,7 +1,7 @@
 spriteSheet.png
 size:512,512
 repeat:none
-computer_screen
+computer_screen_with_buttons
 bounds:2,41,452,350
 light_off
 bounds:456,354,28,37

@@ -16,8 +16,10 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
-enum class LIGHT(var ON: Boolean = false) {
-    STATE()
+enum class SWITCHES(var STATE: Boolean = false) {
+    LIGHT(),
+    CHANNEL_SWITCHED(),
+    CHANNEL_RIGHT(),
 }
 
 class MainScreen(val gameAssets: Map<String, Sprite>): MyScreen {
@@ -60,7 +62,7 @@ class MainScreen(val gameAssets: Map<String, Sprite>): MyScreen {
         val lightY = 9f
         val lightWidth = 2f
         val lightHeight = 2f
-        computerScreenSprite = gameAssets["computer_screen"]!!
+        computerScreenSprite = gameAssets["computer_screen_with_buttons"]!!
         lightOnSprite = gameAssets["light_on"]!!
         lightOffSprite = gameAssets["light_off"]!!
         fonts = BitmapFont(files.internal("Fonts/nimbusMono.fnt"))
@@ -72,7 +74,7 @@ class MainScreen(val gameAssets: Map<String, Sprite>): MyScreen {
         pixmap.setColor(0f, 0f, 0f, 1f)
         pixmap.fill()
         spotLightTexture = Texture(pixmap)
-        input.inputProcessor = Light(mainRenderCamera)
+        input.inputProcessor = GameInputs(mainRenderCamera)
     }
 
     fun fontsAsTexture(){
@@ -127,7 +129,7 @@ class MainScreen(val gameAssets: Map<String, Sprite>): MyScreen {
         simpleQuad.render(screenTexture, fontsAsTexture, spotLightTexture, mainRenderCamera, deltaTime)
         batch.projectionMatrix = mainRenderCamera.combined
         batch.begin()
-        if (!LIGHT.STATE.ON){
+        if (!SWITCHES.LIGHT.STATE){
             lightOffSprite.draw(batch)
         } else {
             lightOnSprite.draw(batch)
