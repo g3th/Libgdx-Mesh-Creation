@@ -37,7 +37,7 @@ interface MyInputs: InputProcessor {
  * channelSwitches(camera: Vector3)
  * ```
  */
-abstract class Graphic_Interface(val camera: Camera): MyInputs {
+abstract class GraphicInterface(val camera: Camera): MyInputs {
 
     /**
      * Used to discover unprojected co-ordinates for the point on the screen which has been clicked.
