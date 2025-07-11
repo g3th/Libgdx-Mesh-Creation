@@ -29,7 +29,7 @@ interface MyInputs: InputProcessor {
 }
 
 /**
- * Abstract class for input processing, with built-in methods for all GUI buttons.
+ * Abstract class for input processing, with methods for all GUI buttons.
  * Methods:
  * ```
  * debugScreenCoordinates(camera: Vector3)
